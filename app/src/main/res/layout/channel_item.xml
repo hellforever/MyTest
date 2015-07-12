@@ -46,13 +46,11 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_marginTop="2dp"></com.example.zhuzijian.mytest.FlowLayout>-->
 
-        <TextView
+        <com.example.zhuzijian.mytest.XRTextView
             android:id="@+id/apollo_home_channel_item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:textColor="#999"
             android:textSize="12sp" />
     </LinearLayout>

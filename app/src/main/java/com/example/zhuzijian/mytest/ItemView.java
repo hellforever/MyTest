@@ -1,7 +1,6 @@
 package com.example.zhuzijian.mytest;
 
 import android.content.Context;
-import android.text.Html;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,10 +19,8 @@ public class ItemView extends LinearLayout {
         TextView titleView = (TextView) findViewById(R.id.apollo_home_channel_item_title);
         titleView.setText("洗衣");
 
-        TextView textView = (TextView) findViewById(R.id.apollo_home_channel_item_desc);
-        textView.setText(Html.fromHtml("<font color=000000>" + "日常保洁 " + "</font>" + "<font color=#0000ff>" + "日常保洁 "
-                + "</font>"  + "日常保洁 " +"<font color=000000>" + "日常保洁 " + "</font>"
-                + "<font color=000000>" + "日常保洁 " + "</font>"));
+        XRTextView textView = (XRTextView) findViewById(R.id.apollo_home_channel_item_desc);
+        textView.setText("日常保洁 " + "洗衣服 " + "美甲 " + "日常保洁 " + "日常保洁 ");
         //textView.setText(Html.fromHtml("日常保洁 日常保洁 日常保洁"));
 //        FlowLayout descView = (FlowLayout) findViewById(R.id.apollo_home_channel_item_desc);
 //        descView.setPadding(dip2Px(5), 0);
@@ -35,7 +32,6 @@ public class ItemView extends LinearLayout {
 //            textView.setText("美甲");
 //            descView.addView(textView);
 //        }
-
     }
 
     private int dip2Px(float dip) {
