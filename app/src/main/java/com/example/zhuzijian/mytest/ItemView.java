@@ -21,6 +21,7 @@ public class ItemView extends LinearLayout {
 
         XRTextView textView = (XRTextView) findViewById(R.id.apollo_home_channel_item_desc);
         textView.setText("日常保洁 " + "洗衣服 " + "美甲 " + "日常保洁 " + "日常保洁 ");
+        //textView.setMYTextSize(getResources().getDimensionPixelSize(R.dimen.text_size));
         //textView.setText(Html.fromHtml("日常保洁 日常保洁 日常保洁"));
 //        FlowLayout descView = (FlowLayout) findViewById(R.id.apollo_home_channel_item_desc);
 //        descView.setPadding(dip2Px(5), 0);

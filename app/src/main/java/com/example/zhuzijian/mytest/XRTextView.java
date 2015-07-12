@@ -5,25 +5,28 @@ package com.example.zhuzijian.mytest;
  */
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 public class XRTextView extends TextView {
-    private final String namespace = "http://schemas.android.com/apk/res/android";
-    private String text;
+    private static final String TAG = "ApolloHome";
+    private CharSequence text;
     private float textSize;
     private float paddingLeft;
     private float paddingRight;
     private float marginLeft;
     private float marginRight;
-    private int textColor;
+    private ColorStateList textColor;
     private JSONArray colorIndex;
     private Paint paint1 = new Paint();
     private Paint paintColor = new Paint();
@@ -33,32 +36,19 @@ public class XRTextView extends TextView {
 
     public XRTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        text = attrs.getAttributeValue(
-                "http://schemas.android.com/apk/res/android", "text");
-        textSize = attrs.getAttributeIntValue(namespace, "textSize", 25);//字体大小
-        textColor = attrs.getAttributeIntValue(namespace, "textColor", Color.BLUE);//字体颜色
-        paddingLeft = attrs.getAttributeIntValue(namespace, "paddingLeft", 0);
-        paddingRight = attrs.getAttributeIntValue(namespace, "paddingRight", 0);
-        marginLeft = attrs.getAttributeIntValue(namespace, "marginLeft", 0);
-        marginRight = attrs.getAttributeIntValue(namespace, "marginRight", 0);
+        text = getText();
+        textSize = getTextSize();
+        textColor = getTextColors();
+        paddingLeft = getPaddingLeft();
+        paddingRight = getPaddingRight();
+        try {
+            marginLeft = ((LinearLayout.LayoutParams) getLayoutParams()).leftMargin;
+            marginRight = ((LinearLayout.LayoutParams) getLayoutParams()).rightMargin;
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
         paint1.setTextSize(textSize);
-        paint1.setColor(textColor);
-        paint1.setAntiAlias(true);
-        paintColor.setAntiAlias(true);
-        paintColor.setTextSize(textSize);
-        paintColor.setColor(Color.BLUE);
-    }
-
-    public XRTextView(Context context, float textSize, int textColor, float paddingLeft, float paddingRight, float marginLeft, float marginRight) {
-        super(context);
-        this.textSize = textSize;
-        this.textColor = textColor;
-        this.paddingLeft = paddingLeft;
-        this.paddingRight = paddingRight;
-        this.marginLeft = marginLeft;
-        this.marginRight = marginRight;
-        paint1.setTextSize(textSize);
-        paint1.setColor(textColor);
+        paint1.setColor(textColor.getDefaultColor());
         paint1.setAntiAlias(true);
         paintColor.setAntiAlias(true);
         paintColor.setTextSize(textSize);
@@ -109,7 +99,7 @@ public class XRTextView extends TextView {
 
         text = this.getText().toString();//.replaceAll("\n", "\r\n");
         if (text == null) return;
-        String[] textCharArray = text.split(" ");
+        String[] textCharArray = text.toString().split(" ");
         // 已绘的宽度
         float drawedWidth = 0;
         float charWidth;
@@ -137,7 +127,7 @@ public class XRTextView extends TextView {
                 canvas.drawText(textCharArray[i], paddingLeft + drawedWidth,
                         (lineCount + 1) * textSize * LineSpacing, paint1);
             }
-            drawedWidth += charWidth + Spacing;
+            drawedWidth += charWidth;
 
             if (lineCount == 1 && i != textCharArray.length - 1 && paint1.measureText(textCharArray[i + 1]) > textShowWidth - drawedWidth) {
                 canvas.drawText("...", paddingLeft + drawedWidth,
